@@ -1,0 +1,52 @@
+proc ds2;
+	package  &prglib..rumprg_progParam/ overwrite=yes;
+		declare package hash h_progParam();
+		declare varchar(30)varde varNamn;
+
+		method rumprg_progParam();
+			declare varchar(8) userdata;
+			userdata=%tslit(&userdata);
+			
+			h_progParam.keys([varNamn]);
+			h_progParam.data([varNamn, varde]);
+			h_progParam.dataset('{select strip(lowcase(varNamn)) as varNamn, varde from ' || userdata || '.RUM_PARAMETERS;}');
+			h_progParam.defineDone();
+		*	h_progParam.output('test');
+		end;
+
+		method getVardeChar(varchar(30) iVarName) returns varchar(30);
+			declare varchar(30) vardeChar;
+			declare integer rc;
+			varNamn=lowCase(iVarName);
+			rc=h_progParam.find([varNamn],[varNamn,varde]);
+			if rc ^= 0 then do;
+				put 'Find varde: ' varde ' för varNamn: ' varNamn ' med returkod: ' rc;
+			end;
+			vardeChar=varde;
+			return vardeChar;
+		end;
+		method getVardeInt(varchar(30) iVarName) returns integer;
+			declare integer vardeInt;
+			declare integer rc;
+			varNamn=lowCase(iVarName);
+			rc=h_progParam.find([varNamn],[varNamn, varde]);
+			if rc ^= 0 then do;
+				put 'Find varde: ' varde ' för varNamn: ' varNamn ' med returkod: ' rc;
+			end;
+			vardeInt=varde;
+			return vardeInt;
+		end;
+		method getVardeDouble(varchar(30) iVarName) returns double;
+			declare double vardeDouble;
+			declare integer rc;
+			varNamn=lowCase(iVarName);
+			rc=h_progParam.find([varNamn],[varNamn, varde]);
+			if rc ^= 0 then do;
+				put 'Find varde: ' varde ' för varNamn: ' varNamn ' med returkod: ' rc;
+			end;
+			vardeDouble=varde;
+			return vardeDouble;
+		end;
+
+	endpackage;
+run;quit;

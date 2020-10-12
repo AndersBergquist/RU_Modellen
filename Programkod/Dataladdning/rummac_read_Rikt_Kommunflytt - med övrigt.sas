@@ -1,0 +1,57 @@
+options  mstored  sasmstore=&prglib;
+
+%macro rummac_read_Rikt_Kommunflytt2 / store;
+	%let mladning=%sysfunc(cat(&instLib,%sysfunc(dequote("Manuell laddning"))));
+
+	%if %sysfunc(exist(&datalib..SCB_RIKTAD_FLYTT_KOMMUN2)) %then %do;
+		PROC MEANS DATA=&datalib..SCB_RIKTAD_FLYTT_KOMMUN2 noprint max nonobs;
+			VAR AR;
+			OUTPUT 	OUT=WORK.t_startAr MAX()= startAr;
+		RUN;
+		data _null_;
+			set work.t_startar;
+			call symput('startAr', startAr);
+			call symput("slutAr", year(Date()));
+		run;
+	%end;
+	%else %do;
+		data _null_ ;
+			call symput('startAr', '1995');
+			call symput("slutAr", year(Date()));
+		run;
+	%end;
+	%do i=&startAr %to &slutAr;	
+		%let importfil="&mladning.\BE0101R9_&i..scb";
+		%if %sysfunc(fileexist(&importfil)) %then %do;
+			proc import datafile=&importfil out=BE0101R9_&i dbms=tab;
+		%end;
+		%else %do;
+			%let stopAr=&i;
+			%let i=&slutAr;
+		%end;
+	%end;
+
+	%let aggTabell=work.INBE0101R9;
+	%do y=&startAr %to %eval(&stopAr-1);
+		%if %sysfunc(exist(&aggTabell)) %then %do;
+			proc fedsql ;
+				INSERT INTO &aggTabell SELECT * FROM work.BE0101R9_&y;
+			run;quit;
+		%end;
+		%else %do;
+			proc fedsql;
+				CREATE TABLE &aggTabell AS SELECT * FROM work.BE0101R9_&y;
+			run;quit;
+		%end;
+		proc fedsql;
+			DROP TABLE work.BE0101R9_&y;
+		run;quit;
+	%end;
+	%if %sysfunc(exist(&aggTabell)) %then %do;
+		proc fedsql ;
+		   CREATE TABLE &datalib..SCB_RIKTAD_FLYTT_KOMMUN2 AS 
+		   SELECT tid AS ar, (substr(utflyttningskommun,1,4)) AS utregion_cd, (substr(inflyttningskommun,1,4)) AS inregion_cd, "Riktad inrikes inflyttning" AS flyttningar FROM &aggTabell;
+		   DROP TABLE &aggTabell;
+		run;quit;
+	%end;
+%mend rummac_read_Rikt_Kommunflytt2;

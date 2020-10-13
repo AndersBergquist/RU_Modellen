@@ -8,7 +8,7 @@ proc ds2;
 		dcl package &prglib..rumprg_inrikesFlyttningar calcInrikesFlytt();
 		dcl package &prglib..rumprg_invandringar calcInvandringar();
 		dcl package &prglib..rumprg_utvandringar calcUtvandring();
-		dcl package &prglib..rumprg_nyttigheter nyttigheter();
+		dcl package &prglib..pxweb_GemensammaMetoder nyttigheter();
 		dcl package hash h_regioner();
 		dcl package hiter hi_regioner('h_regioner');
 		dcl private integer basAr slutAr slutArSCB;

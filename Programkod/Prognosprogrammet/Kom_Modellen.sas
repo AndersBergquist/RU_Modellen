@@ -10,7 +10,7 @@ proc ds2;
 		dcl package &prglib..rumprg_inrikesFlyttningar calcInrikesFlyttKom();
 		*dcl package &prglib..rumprg_invandringar calcInvandringar();
 		dcl package &prglib..rumprg_utvandringar calcUtvandring();
-		dcl package &prglib..rumprg_nyttigheter nyttigheter();
+		dcl package &prglib..pxweb_GemensammaMetoder nyttigheter();
 		dcl package &prglib..rumprg_kommunalIPotential calcIP();
 		dcl package &prglib..rumprg_komInflyttning calcKomInflytt();
 *		dcl package &prglib..rumprg_RAP_REG rap_reg();

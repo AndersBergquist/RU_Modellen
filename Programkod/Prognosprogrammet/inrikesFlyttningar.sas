@@ -1,6 +1,6 @@
 proc ds2;
 	package &prglib..rumprg_inrikesFlyttningar / overwrite=yes;
-		dcl package &prglib..rumprg_nyttigheter nyttigheter();
+		dcl package &prglib..pxweb_GemensammaMetoder nyttigheter();
 		dcl package hash h_flyttrisker();
 		dcl package hiter hi_flyttrisker('h_flyttrisker');
 		dcl package hash h_tidjustering();

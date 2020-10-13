@@ -22,6 +22,7 @@ run;
 %let m_regInd=%sysfunc(cat(&instLib,%sysfunc(dequote("Manuell_justering\Regionindelning.xlsx"))));
 %let m_styrParm=%sysfunc(cat(&instLib,%sysfunc(dequote("Manuell_justering\styrvariabler.xlsx"))));
 %let m_projParm=%sysfunc(cat(&instLib,%sysfunc(dequote("Manuell_justering\projektParametrar.xlsx"))));
+%let m_apiVar=%sysfunc(cat(&instLib,%sysfunc(dequote("Manuell_justering\SCB_API_Variabler.xlsx"))));
 
 run;
 /*Default värden 
@@ -42,6 +43,8 @@ libname userdata "&m_userdata";
 libname regInd XLSX "&m_regInd"; *Som standard hänvisas till xl-fil. XLSX tas bort vid t.ex. serverinstallation med AMO.;
 libname styrparm  XLSX "&m_styrParm"; *Som standard hänvisas till xl-fil. XLSX tas bort vid t.ex. serverinstallation med AMO.;
 libname projParm XLSX "&m_projParm"; *Som standard hänvisas till xl-fil. XLSX tas bort vid t.ex. serverinstallation med AMO.;
+libname apiVar XLSX "&m_apiVar"; *Som standard hänvisas till xl-fil. XLSX tas bort vid t.ex. serverinstallation med AMO.;
+
 
 run;
 /*Inga ändringar under denna linjer*/
@@ -52,6 +55,7 @@ run;
 %let regInd=regInd;
 %let styrparm=styrparm;
 %let projParm=projParm;
+%let apiVar=apiVar;
 options  mstored  sasmstore=&prglib;
 
 run;

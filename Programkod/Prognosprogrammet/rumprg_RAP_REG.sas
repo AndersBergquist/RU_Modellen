@@ -8,7 +8,7 @@ proc ds2;
 
 	method run(varchar(150) f_kommunData);
 		declare varchar(500) sql_agg;
-		declare package &prglib..rumprg_nyttigheter nyttigheter();
+		declare package &prglib..pxweb_GemensammaMetoder nyttigheter();
 
 		if nyttigheter.finnsTabell(strip(userdata),f_kommunData)<>0 then sqlexec('drop table ' || strip(userdata) || '.' || f_kommunData);
 		sqlexec('create table ' || strip(userdata) || '.' || f_kommunData || '{option label=''Prognosdata för prognosregionen''}(

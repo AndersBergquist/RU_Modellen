@@ -2,7 +2,7 @@ proc ds2;
 	package &prglib..rumprg_resultat / overwrite=yes;
 		*dcl package hash h_resultatTabell();
 		declare package sqlstmt s_resultatTabell();
-		dcl package &prglib..rumprg_nyttigheter nyttigheter();
+		dcl package &prglib..pxweb_GemensammaMetoder nyttigheter();
 
 		dcl private integer ar region alder;
 		dcl private double totalBefolkning totalbefolkningjan antalDoda antalFodda antalInflyttade antalUtflyttade antalInvandrade antalUtvandrade;

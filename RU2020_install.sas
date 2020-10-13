@@ -37,10 +37,14 @@ filename iDataL "&instLib\Programkod\Dataladdning";
 filename iPinit "&instLib\Programkod\Projektinitiering";
 filename iRedov "&instLib\Programkod\Resultatredovisning";
 
-%include iNytto('pxwebToSAS.sas');
-%include iNytto('pxwebToSAS2.sas');
-%include iNytto('nyttigheter.sas');
-%include iNytto('pxwebToSAS3.0A.sas');
+%include iNytto('pxweb_Gemensamma_Metoder.sas');
+%include iNytto('pxweb_table_update_date.sas');
+%include iNytto('pxweb_getMetaData.sas');
+%include iNytto('pxweb_makeJsonFraga.sas');
+%include iNytto('pxweb_Skapa_Output_Tabell.sas');
+%include iNytto('pxweb_skapaStmtFraga.sas');
+%include iNytto('pxweb_getData.sas');
+%include iNytto('pxwebToSAS4.sas');
 %include iNytto('progParam.sas');
 
 %include iProg('Befolkning.sas');
@@ -74,6 +78,8 @@ filename iRedov "&instLib\Programkod\Resultatredovisning";
 %include iDataL('SCB_TABORT.sas');
 %include iDataL('SCB_LADDA.sas');
 %include iDataL('rummac_read_Rikt_Kommunflytt - med övrigt.sas');
+/* Nya dataladdningen */
+%include iDataL('run_scb_hamta_data.sas');
 
 %include iPinit('prog_flyttaTabeller.sas');
 %include iPinit('prog_indelningar.sas');
